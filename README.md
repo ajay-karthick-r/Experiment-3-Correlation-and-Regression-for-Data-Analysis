@@ -24,9 +24,81 @@
 
 # Program
 
+# Name: R Ajay Karthick
+# Reg_No: 25018493
+# Slot_Name: 3P1-1
+# Date: 16-11-2025
 
+# Exp: No-3
+
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+# Input x and y values
+x = [int(i) for i in input("Enter x values (space separated): ").split()]
+y = [int(i) for i in input("Enter y values (space separated): ").split()]
+
+if len(x) != len(y):
+    raise SystemExit("Error: x and y must have the same number of values.")
+
+N = len(x)
+
+# Initialize sums
+Sx = 0
+Sy = 0
+Sxy = 0
+Sx2 = 0
+Sy2 = 0
+
+# Compute sums
+for i in range(N):
+    Sx += x[i]
+    Sy += y[i]
+    Sxy += x[i] * y[i]
+    Sx2 += x[i] ** 2
+    Sy2 += y[i] ** 2
+
+# Correlation coefficient
+den = math.sqrt((N * Sx2 - Sx**2) * (N * Sy2 - Sy**2))
+if den == 0:
+    raise SystemExit("Denominator zero when computing correlation.")
+
+r = (N * Sxy - Sx * Sy) / den
+print("The Correlation coefficient is %0.3f" % r)
+
+# Regression coefficient (Y on X)
+byx = (N * Sxy - Sx * Sy) / (N * Sx2 - Sx**2)
+
+# Means
+xmean = Sx / N
+ymean = Sy / N
+
+print("The Regression line Y on X is ::: y = %0.3f + %0.3f (x-%0.3f)" % (ymean, byx, xmean))
+
+# Scatter plot
+plt.scatter(x, y)
+
+# Regression line function
+def Reg(xv):
+    return ymean + byx * (xv - xmean)
+
+x_plot = np.linspace(min(x), max(x), 51)
+y_plot = Reg(x_plot)
+
+plt.plot(x_plot, y_plot, 'r')
+plt.xlabel('x-data')
+plt.ylabel('y-data')
+plt.legend(['Regression Line', 'Data points'])
+plt.grid(True)
+plt.show()
+
+# Google_Colab-link:
+https://colab.research.google.com/drive/1W6m6bMBcXPYDuJF0DFjOWJTbJG90yXNT?usp=sharing
 
 # Output
+
+<img width="1033" height="641" alt="Screenshot 2025-11-16 223423" src="https://github.com/user-attachments/assets/935eddd4-49ea-4489-8558-6a2c1b5af740" />
 
 
 # Result
